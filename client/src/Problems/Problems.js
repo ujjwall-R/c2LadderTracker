@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import "./Problems.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBookmark,
-  faCheckSquare,
-  faCoffee,
-} from "@fortawesome/fontawesome-free-solid";
+import { faBookmark } from "@fortawesome/fontawesome-free-solid";
 import Ratings from "../Ratings/Ratings";
 
 const data = {
@@ -13,80 +9,91 @@ const data = {
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "0",
+      status: 0,
+      bookmarked: 1,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "1",
+      status: 1,
+      bookmarked: 0,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "1",
+      status: 1,
+      bookmarked: 0,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "0",
+      status: 0,
+      bookmarked: 1,
     },
   ],
   900: [
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "1",
+      status: 1,
+      bookmarked: 0,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "1",
+      status: 1,
+      bookmarked: 0,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "0",
+      status: 0,
+      bookmarked: 1,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "1",
+      status: 1,
+      bookmarked: 0,
     },
   ],
   1000: [
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "0",
+      status: 0,
+      bookmarked: 0,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "1",
+      status: 1,
+      bookmarked: 0,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "0",
+      status: 0,
+      bookmarked: 0,
     },
     {
       problem: "Polycarp and Coins",
       link: "https://codeforces.com/problemset/problem/1551/A",
-      status: "1",
+      status: 1,
+      bookmarked: 1,
     },
   ],
 };
 
-const Problems = () => {
+const Problems = ({ rating, ratingChanger }) => {
   const [problems, setProblems] = useState([]);
-  const rating = "800";
+
   useState(() => {
     setProblems(data[rating]);
-  }, [data]);
-  console.log(problems);
+  }, [data, rating]);
   return (
     <div className="problems2-page">
-      <Ratings />
+      <Ratings ratingChanger={ratingChanger} />
       <div className="table">
         <table className="table table-striped">
           <thead>
@@ -100,20 +107,20 @@ const Problems = () => {
           </thead>
           <tbody>
             {problems.map((p, i) => {
-              console.log(p);
               return (
-                <tr
-                  onClick={() => {
-                    console.log(2);
-                  }}
-                >
+                <tr onClick={() => {}}>
                   <th scope="row">{i + 1}</th>
                   <td>{p.problem}</td>
-                  {/* <td>{p.status}</td> */}
                   <td>
-                    <button type="button" class="btn btn-outline-success">
-                      Success
-                    </button>
+                    {p.status == 0 ? (
+                      <button type="button" class="btn btn-success">
+                        Solve Problem
+                      </button>
+                    ) : (
+                      <button type="button" class="btn btn-outline-success">
+                        Solved
+                      </button>
+                    )}
                   </td>
                   <td>
                     <div class="form-group">
@@ -121,7 +128,17 @@ const Problems = () => {
                     </div>
                   </td>
                   <td>
-                    <FontAwesomeIcon icon={faBookmark} />
+                    {p.bookmarked == 1 ? (
+                      <FontAwesomeIcon
+                        icon="fa-solid fa-bookmark"
+                        color="red"
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon="fa-solid fa-bookmark"
+                        color="grey"
+                      />
+                    )}
                   </td>
                 </tr>
               );
